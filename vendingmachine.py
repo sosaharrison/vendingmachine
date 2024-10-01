@@ -7,6 +7,23 @@ choose = ""
 change = 0
 money = 0
 
+def option():
+    global add_money
+    global buying
+    try:
+        if choose == "1":
+            add_money()  
+        elif choose == "2":
+            buying()
+        elif choose == "3":
+            quit()
+        else:
+            raise IndexError
+    except IndexError as e:
+        print("Please choose either 1, 2, or 3")
+        option()
+
+
 def add_money():
     global money
     money = input("Enter the amount of money: £")
@@ -28,53 +45,33 @@ def purchase():
     global choose
     global selected_items
     if money >= total:
-        try:
-            buy = input("Would you like to buy the items? yes or no: ")
-            if buy == "yes":
-                    change = money - total
-                    print("You have bought the items.")
-                    if change > 0:
-                        print("Here is your £", change, "back in change")
-            elif buy == "no":
-                total = 0                    
-                selected_items = []
-                print(
-                "[1] Add More Money" +  
-                " [2] Change chosen items" + 
-                " [3] End ")
-                print("Choose either 1, 2, or 3.")
-                choose = (input(""))
-                if choose == "1":
-                    add_money()  
-                elif choose == "2":
-                    buying()
-                elif choose == "3":
-                    quit()
-                else:
-                    print("Choose either 1, 2, or 3.")
-                    choose = (input(""))
-            elif money < total:
-                total = 0
-                selected_items = []
-                print(
-                "You do not have enough money." +
-                "[1] Add More Money" +  
-                " [2] Change chosen items" + 
-                " [3] End ")
-                print("Choose either 1, 2, or 3.")
-                choose = (input(""))
-                if choose == "1":
-                    add_money()  
-                elif choose == "2":
-                    buying()
-                elif choose == "3":
-                    quit()
-                else:
-                    print("Choose either 1, 2, or 3.")
-                choose = (input(""))
-        except IndexError as e:
-            print("Please pick yes or no")
-
+        buy = input("Would you like to buy the items? yes or no: ")
+        if buy == "yes":
+                change = money - total
+                print("You have bought the items.")
+                if change > 0:
+                    print("Here is your £", change, "back in change")
+        elif buy == "no":
+            total = 0                    
+            selected_items = []
+            print(
+            "[1] Add More Money" +  
+            " [2] Change chosen items" + 
+            " [3] End ")
+            print("Choose either 1, 2, or 3.")
+            choose = (input(""))
+            option()
+    elif money < total:
+        total = 0
+        selected_items = []
+        print(
+        "You do not have enough money." +
+        "[1] Add More Money" +  
+        " [2] Change chosen items" + 
+        " [3] End ")
+        print("Choose either 1, 2, or 3.")
+        choose = (input(""))
+        option()
 
 def buying():
     global item
@@ -95,9 +92,9 @@ def buying():
             else:
                 buying()
         else:
-            print("Please select a real item")
+            raise IndexError
     except IndexError as e:
         print("Please select a real item")
-
+        buying()
 add_money()
 
