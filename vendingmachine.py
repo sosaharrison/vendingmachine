@@ -35,7 +35,7 @@ def add_money():
         buying()
     else:
         print("Please select a whole number.")
-        add_money()
+        add_money() 
  
 
 def purchase():
@@ -77,23 +77,20 @@ def buying():
     global item
     global total
     try:
-        item = (input("Select your item: "))
-        if item.isnumeric():
-            item = int(item)
-            selected_items.append(list_tuple[item-1])
-            continue_buying = input("Do you want another item? Choose yes or no: \n")
-            if continue_buying == "no":
-                print("")
-                for i in selected_items:
-                    total += i[2]
-                    print(f"You have chosen {i[1]} ")
-                print(f"Your total is £ {total:g} \n")
-                purchase()
-            else:
-                buying()
+        item = int(input("Select your item: "))
+        item = int(item)
+        selected_items.append(list_tuple[item-1])
+        continue_buying = input("Do you want another item? Choose yes or no: \n")
+        if continue_buying == "no":
+            print("")
+            for i in selected_items:
+                total += i[2]
+                print(f"You have chosen {i[1]} ")
+            print(f"Your total is £ {total:g} \n")
+            purchase()
         else:
-            raise IndexError
-    except IndexError as e:
+            buying()
+    except ValueError as e:
         print("Please select a real item")
         buying()
 add_money()
